@@ -35,6 +35,7 @@ def test_insert_list_of_documents():
     orders_repository.insert_list_of_documents(my_doc)
 
 
+@pytest.mark.skip(reason="Interação com o banco")
 def test_select_many():
     orders_repository = OrdersRepository(conn)
     doc_filter = {"cupom": True}
@@ -47,9 +48,32 @@ def test_select_many():
         print()
 
 
+@pytest.mark.skip(reason="Interação com o banco")
 def test_select_one():
     orders_repository = OrdersRepository(conn)
     doc_filter = {"cupom": True}
     response = orders_repository.select_one(doc_filter)
     print()
     print(response)
+
+
+@pytest.mark.skip(reason="Interação com o banco")
+def test_select_many_with_properties():
+    orders_repository = OrdersRepository(conn)
+    doc_filter = {"cupom": True}
+    response = orders_repository.select_many_with_properties(doc_filter)
+    print()
+    for doc in response:
+        print(doc)
+        print()
+
+
+@pytest.mark.skip(reason="Interação com o banco")
+def test_select_if_property_exists():
+    orders_repository = OrdersRepository(conn)
+    response = orders_repository.select_if_property_exists()
+    print()
+    print(response)
+    for doc in response:
+        print(doc)
+        print()

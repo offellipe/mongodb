@@ -15,8 +15,27 @@ class OrdersRepository:
         collection = self.__db_connection.get_collection(self.__collection_name)
         data = collection.find(doc_filter)
         return data
-    
-    def select_one(self, doc_filter: dict) -> dict
+
+    def select_one(self, doc_filter: dict) -> dict:
         collection = self.__db_connection.get_collection(self.__collection_name)
         data = collection.find_one(doc_filter)
+        return data
+
+    def select_many_with_properties(self, doc_filter: dict) -> dict:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.find_one(
+            doc_filter,  # filtro de busca
+            {
+                "_id": 0,
+                "cupom": 0
+            }  # Opções de retorno
+        )
+        return data
+
+    def select_if_property_exists(self) -> dict:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.find(
+            {"address": {"$exists": True}},
+            {"_id": 0, "itens": 0}
+        )
         return data

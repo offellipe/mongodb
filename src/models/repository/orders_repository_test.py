@@ -35,3 +35,20 @@ def test_insert_document():
     print(collection.insert_one_attributes)
 
     assert collection.insert_one_attributes["dict"] == doc
+
+
+def test_select_many_with_properties():
+    collection = CollectionMock()
+    db_connection = DbCollectionMock(collection)
+    repo = OrdersRepository(db_connection)
+
+    doc = {"testando": "find"}
+    repo.select_many_with_properties(doc)
+
+    print()
+    print(collection.find_attributes)
+    print(collection.find_attributes["args"][0])
+    print(collection.find_attributes["args"][1])
+
+    assert collection.find_attributes["args"][0] == doc
+    assert collection.find_attributes["args"][1] == {"_id": 0, "itens": 0}

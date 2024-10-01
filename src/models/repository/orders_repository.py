@@ -1,3 +1,6 @@
+from bson.objectid import ObjectId
+
+
 class OrdersRepository:
     def __init__(self, db_connection) -> None:
         self.__collection_name = "orders"
@@ -38,4 +41,9 @@ class OrdersRepository:
             {"address": {"$exists": True}},
             {"_id": 0, "itens": 0}
         )
+        return data
+
+    def select_by_object_id(self, object_id: str) -> list:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.find_one({"_id": ObjectId(object_id)})
         return data

@@ -27,4 +27,3 @@ def registry_order_validator(body: any):
 
     if response is False:
         raise Exception(body_validator.errors)
-    
